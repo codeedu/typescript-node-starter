@@ -3,13 +3,17 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon src/index.ts",
+    "start": "nodemon",
     "prod": "node dist/index.js",
     "cleandist": "rimraf dist",
     "build": "npm run cleandist && sucrase ./src -d ./dist --transforms typescript,imports",
-    "ts-node": "ts-node"
+    "ts-node": "ts-node",
+    "frontend-dev": "webpack --mode=development",
+    "frontend-watch": "webpack --mode=development --watch",
+    "frontend-build": "webpack --mode=production"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
@@ -23,8 +27,22 @@
     "nodemon": "^2.0.4",
     "rimraf": "^3.0.2",
     "sucrase": "^3.15.0",
+    "ts-loader": "^7.0.5",
     "ts-node": "^8.10.2",
     "tslib": "^2.0.0",
-    "typescript": "^3.9.3"
+    "typescript": "^3.9.3",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  },
+  "nodemonConfig": {
+    "verbose": true,
+    "watch": [
+      "src/"
+    ],
+    "ignore": [
+      "dist/*"
+    ],
+    "ext": "ts",
+    "exec": "npm run ts-node src/index.ts"
   }
 }
